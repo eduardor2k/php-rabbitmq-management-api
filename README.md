@@ -1,4 +1,4 @@
-PHP RabbitMQ Management Api
+Laravel RabbitMQ Management Api
 ===========================
 
 A simple object oriented wrapper for the [RabbitMQ Management HTTP Api](http://hg.rabbitmq.com/rabbitmq-management/raw-file/rabbitmq_v3_0_3/priv/www/api/index.html) in PHP 5.5.
@@ -7,39 +7,57 @@ Forked from 'richardfullmer/php-rabbitmq-management-api' in order to modernize t
 
 Uses [Guzzle](http://guzzlephp.org) for REST requests.
 
+
+### Requirements:
+- php ~5.4.* 
+
+
 Installation
 ------------
 
 Installable through composer via:
+====
 
-```bash
-$ composer require markup/rabbitmq-management-api
+First add package name to your composer requirements
+```json
+"require": {
+    "mammutgroup/rabbitmq-management-api": "dev"
+}
 ```
 
-Basic Usage
------------
+Next, update Composer from the Terminal:
+>composer update
+
+Next, add your new provider to the providers array of config/app.php:
 
 ```php
-<?php
-
-use Markup\RabbitMq\ManagementApi\Client;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-$client = new Client();
-$queue = $client->queues()->get('/', 'sample-messages-queue');
-$response = $client->exchanges()->publish('/', 'sample-messages', array(
-    'properties' => array(),
-    'routing_key' => '',
-    'payload' => 'This is a test',
-    'payload_encoding' => 'string'
-));
-
-if ($response['routed']) {
-    print 'Message delivered';
-}
-
+'providers' => [
+    // ...
+    Markup\RabbitMq\RabbitManagerServiceProvider::class
+    // ...
+  ]
 ```
+
+Next, add class alias to the aliases array of config/app.php:
+
+```php
+'aliases' => [
+   // ...
+      'RabbitManager' => Markup\RabbitMq\Facades\RabbitManager::class,
+    // ...
+]
+```
+
+Finally, run:
+> php artisan vendor:publish
+
+Ho to use:
+====
+```php
+  \RabbitManager::users()->all();
+```
+
+
 
 License
 -------
