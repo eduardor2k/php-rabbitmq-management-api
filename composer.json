@@ -1,9 +1,9 @@
 {
-    "name": "markup/rabbitmq-management-api",
+    "name": "mammutgroup/rabbitmq-management-api",
     "type": "library",
-    "description": "An object oriented wrapper for the RabbitMQ Management HTTP Api",
+    "description": "An Laravel wrapper for the RabbitMQ Management HTTP Api",
     "homepage": "https://github.com/markup/php-rabbitmq-management-api",
-    "keywords": ["rest", "message queue", "rabbitmq"],
+    "keywords": ["rest", "laravel", "message queue", "rabbitmq"],
     "license": "MIT",
     "authors": [
         {
@@ -15,6 +15,11 @@
             "name": "Calum Brodie",
             "email": "calum@usemarkup.com",
             "homepage": "https://github.com/calumbrodie"
+        },
+	{
+            "name": "MohammadReza Honarkhah",
+            "email": "m.honar@gmail.com",
+            "homepage": "https://github.com/honarkhah"
         }
     ],
     "require": {

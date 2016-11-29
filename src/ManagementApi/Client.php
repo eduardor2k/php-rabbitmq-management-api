@@ -3,7 +3,7 @@
 namespace Markup\RabbitMq\ManagementApi;
 
 use Guzzle\Http\Client as GuzzleHttpClient;
-
+use Illuminate\Config\Repository;
 /**
  * ManagementApi
  *
@@ -39,18 +39,32 @@ class Client
     /**
      * @var string
      */
-    const BASEURL_DEFAULT = 'http://localhost:15672';
+    const BASEHOST_DEFAULT = 'http://localhost:15672';
+    /**
+     * @var string
+     */
+    const BASEPORT_DEFAULT = 15672;
 
     /**
      * @param \Guzzle\Http\Client $client
      * @param string              $username
      * @param string              $password
      */
-    public function __construct(
-        $baseUrl = self::BASEURL_DEFAULT,
+    public function __construct(Repository $config,
+        $host = self::BASEHOST_DEFAULT,
+        $port = self::BASEPORT_DEFAULT,
         $username = self::USERNAME_DEFAULT,
         $password = self::PASSWORD_DEFAULT
     ) {
+        $environment = $config->get('rabbit-manager.use');
+
+	$host = $config->get('rabbit-manager.properties.'. $environment . '.host',$host);
+	$port = $config->get('rabbit-manager.properties.'. $environment . '.port',$port);
+	$username = $config->get('rabbit-manager.properties.'. $environment . '.username',$username);
+	$password = $config->get('rabbit-manager.properties.'. $environment . '.username',$password);
+
+        $baseUrl = $host . ':' .$port;
+
         $this->client = new GuzzleHttpClient();
         $this->client->setBaseUrl($baseUrl);
 
