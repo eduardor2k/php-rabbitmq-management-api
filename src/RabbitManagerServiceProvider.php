@@ -1,4 +1,5 @@
-<?php namespace Markup\RabbitMq;
+<?php
+namespace Markup\RabbitMq;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -39,7 +39,7 @@ class Client
     /**
      * @var string
      */
-    const BASEHOST_DEFAULT = 'http://localhost:15672';
+    const BASEHOST_DEFAULT = 'http://localhost';
     /**
      * @var string
      */
@@ -57,7 +57,6 @@ class Client
         $password = self::PASSWORD_DEFAULT
     ) {
         $environment = $config->get('rabbit-manager.use');
-
 	$host = $config->get('rabbit-manager.properties.'. $environment . '.host',$host);
 	$port = $config->get('rabbit-manager.properties.'. $environment . '.port',$port);
 	$username = $config->get('rabbit-manager.properties.'. $environment . '.username',$username);
