@@ -39,11 +39,7 @@ class Client
     /**
      * @var string
      */
-    const BASEHOST_DEFAULT = 'http://localhost';
-    /**
-     * @var string
-     */
-    const BASEPORT_DEFAULT = 15672;
+    const BASEURL_DEFAULT = 'http://localhost:15672';
 
     /**
      * @param \Guzzle\Http\Client $client
@@ -51,18 +47,14 @@ class Client
      * @param string              $password
      */
     public function __construct(Repository $config,
-        $host = self::BASEHOST_DEFAULT,
-        $port = self::BASEPORT_DEFAULT,
+        $baseUrl = self::BASEURL_DEFAULT,
         $username = self::USERNAME_DEFAULT,
         $password = self::PASSWORD_DEFAULT
     ) {
         $environment = $config->get('rabbit-manager.use');
-	$host = $config->get('rabbit-manager.properties.'. $environment . '.host',$host);
-	$port = $config->get('rabbit-manager.properties.'. $environment . '.port',$port);
+	$baseUrl = $config->get('rabbit-manager.properties.'. $environment . '.base_url',$host);
 	$username = $config->get('rabbit-manager.properties.'. $environment . '.username',$username);
 	$password = $config->get('rabbit-manager.properties.'. $environment . '.username',$password);
-
-        $baseUrl = $host . ':' .$port;
 
         $this->client = new GuzzleHttpClient();
         $this->client->setBaseUrl($baseUrl);
