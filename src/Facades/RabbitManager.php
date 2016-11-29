@@ -1,4 +1,4 @@
-<?php namespace RabbitMq\ManagementApi\Facades;
+<?php namespace Markup\RabbitMq\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

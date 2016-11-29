@@ -1,4 +1,4 @@
-<?php namespace RabbitMq\ManagementApi;
+<?php namespace Markup\RabbitMq;
 
 use Illuminate\Support\ServiceProvider;
 
