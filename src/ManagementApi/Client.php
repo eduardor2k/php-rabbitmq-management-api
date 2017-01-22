@@ -54,7 +54,7 @@ class Client
         $environment = $config->get('rabbit-manager.use');
         $baseUrl = $config->get('rabbit-manager.properties.'. $environment . '.base_url',$baseUrl);
         $username = $config->get('rabbit-manager.properties.'. $environment . '.username',$username);
-        $password = $config->get('rabbit-manager.properties.'. $environment . '.username',$password);
+        $password = $config->get('rabbit-manager.properties.'. $environment . '.password',$password);
 
         $this->client = new GuzzleHttpClient();
         $this->client->setBaseUrl($baseUrl);

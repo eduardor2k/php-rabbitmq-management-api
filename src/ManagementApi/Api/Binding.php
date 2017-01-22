@@ -59,7 +59,7 @@ class Binding extends AbstractApi
      * @param  array|null  $arguments
      * @return array
      */
-    public function create($vhost, $exchange, $queue, $routingKey = null, array $arguments = null)
+    public function create($vhost, $exchange, $destination , $routingKey = null, array $arguments = null, $destinationType = 'q')
     {
         $parameters = [];
 
@@ -71,9 +71,13 @@ class Binding extends AbstractApi
         if ($arguments) {
             $parameters['arguments'] = $arguments;
         }
+        $parameters['vhost'] = $vhost;
+        $parameters['source'] = $exchange;
+        $parameters['destination_type'] = $destinationType;
+        $parameters['destination'] = $destination;
 
         return $this->client->send(
-            ['/api/bindings/{vhost}/e/{exchange}/q/{queue}', ['vhost' => $vhost, 'exchange' => $exchange, 'queue' => $queue]], 'POST', null, $parameters);
+            ['/api/bindings/{vhost}/e/{exchange}/{destionationType}/{destination}', ['vhost' => $vhost,'destinationType' => $destinationType, 'exchange' => $exchange, 'destination' => $destination]], 'POST', null, $parameters);
     }
 
     /**
