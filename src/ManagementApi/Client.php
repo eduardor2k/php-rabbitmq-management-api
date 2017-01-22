@@ -2,7 +2,7 @@
 
 namespace Markup\RabbitMq\ManagementApi;
 
-use Guzzle\Http\Client as GuzzleHttpClient;
+use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Config\Repository;
 /**
  * ManagementApi

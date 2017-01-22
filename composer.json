@@ -16,7 +16,7 @@
             "email": "calum@usemarkup.com",
             "homepage": "https://github.com/calumbrodie"
         },
-	{
+	    {
             "name": "MohammadReza Honarkhah",
             "email": "m.honar@gmail.com",
             "homepage": "https://github.com/honarkhah"
@@ -24,7 +24,7 @@
     ],
     "require": {
         "php": ">=5.4",
-        "guzzle/guzzle": "~3.0"
+        "guzzlehttp/guzzle": "~6.0"
     },
     "autoload": {
         "psr-4": {
