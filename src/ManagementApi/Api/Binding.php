@@ -77,7 +77,7 @@ class Binding extends AbstractApi
         $parameters['destination'] = $destination;
 
         return $this->client->send(
-            ['/api/bindings/{vhost}/e/{exchange}/{destionationType}/{destination}', ['vhost' => $vhost,'destinationType' => $destinationType, 'exchange' => $exchange, 'destination' => $destination]], 'POST', null, $parameters);
+            ['/api/bindings/{vhost}/e/{exchange}/{destinationType}/{destination}', ['vhost' => $vhost,'destinationType' => $destinationType, 'exchange' => $exchange, 'destination' => $destination]], 'POST', null, $parameters);
     }
 
     /**
