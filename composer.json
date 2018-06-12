@@ -1,5 +1,5 @@
 {
-    "name": "mammutgroup/rabbitmq-management-api",
+    "name": "eduardor2k/rabbitmq-management-api",
     "type": "library",
     "description": "An Laravel wrapper for the RabbitMQ Management HTTP Api",
     "homepage": "https://github.com/markup/php-rabbitmq-management-api",
@@ -24,7 +24,7 @@
     ],
     "require": {
         "php": ">=5.4",
-        "guzzlehttp/guzzle": "~3.0"
+        "guzzlehttp/guzzle": "^3.0"
     },
     "autoload": {
         "psr-4": {
