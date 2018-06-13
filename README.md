@@ -5,7 +5,7 @@ A simple object oriented wrapper for the [RabbitMQ Management HTTP Api](http://h
 
 Forked from 'richardfullmer/php-rabbitmq-management-api' in order to modernize the code and add tests.
 
-Uses [Guzzle](http://guzzlephp.org) for REST requests.
+Uses [Guzzle] 6 (http://guzzlephp.org) for REST requests.
 
 
 ### Requirements:

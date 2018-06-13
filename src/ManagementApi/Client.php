@@ -4,6 +4,7 @@ namespace Markup\RabbitMq\ManagementApi;
 
 use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Config\Repository;
+
 /**
  * ManagementApi
  *
@@ -15,16 +16,6 @@ class Client
      * @var GuzzleHttpClient
      */
     protected $client;
-
-    /**
-     * @var string
-     */
-    protected $username;
-
-    /**
-     * @var string
-     */
-    protected $password;
 
     /**
      * @var string
@@ -41,26 +32,29 @@ class Client
      */
     const BASEURL_DEFAULT = 'http://localhost:15672';
 
+    protected $baseUrl = '';
+
     /**
      * @param \Guzzle\Http\Client $client
      * @param string              $username
      * @param string              $password
      */
     public function __construct(Repository $config,
-        $baseUrl = self::BASEURL_DEFAULT,
-        $username = self::USERNAME_DEFAULT,
-        $password = self::PASSWORD_DEFAULT
+                                $baseUrl = self::BASEURL_DEFAULT,
+                                $username = self::USERNAME_DEFAULT,
+                                $password = self::PASSWORD_DEFAULT
     ) {
         $environment = $config->get('rabbit-manager.use');
-        $baseUrl = $config->get('rabbit-manager.properties.'. $environment . '.base_url',$baseUrl);
+        $this->baseUrl = $config->get('rabbit-manager.properties.'. $environment . '.base_url',$baseUrl);
         $username = $config->get('rabbit-manager.properties.'. $environment . '.username',$username);
         $password = $config->get('rabbit-manager.properties.'. $environment . '.password',$password);
 
-        $this->client = new GuzzleHttpClient();
-        $this->client->setBaseUrl($baseUrl);
-
-        $this->username = $username;
-        $this->password = $password;
+        $this->client = new GuzzleHttpClient([
+            'headers' => [
+                'Authorization' => 'Basic '.base64_encode($username.':'.$password),
+                'Accept' => 'application/json',
+            ]
+        ]);
     }
 
     /**
@@ -70,20 +64,13 @@ class Client
      * @param  string|resource|array $body     Entity body of request (POST/PUT) or response (GET)
      * @return array
      */
-    public function send($endpoint, $method = 'GET', $headers = null, $body = null)
+    public function send($endpoint, $method = 'GET', $headers = [], $body = null)
     {
         if (null !== $body) {
             $body = json_encode($body);
         }
 
-        $request = $this->client->createRequest($method, $endpoint, $headers, $body)->setAuth($this->username, $this->password);
-
-        if (in_array($method, ['PUT', 'POST', 'DELETE'])) {
-            $request->setHeader('content-type', 'application/json');
-        }
-
-        $response = $request->send();
-
+        $response = $this->client->$method($this->baseUrl.$endpoint);
         return json_decode($response->getBody(), true);
     }
 }
